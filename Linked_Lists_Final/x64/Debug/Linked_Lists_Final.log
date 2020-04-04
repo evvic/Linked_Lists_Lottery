@@ -1,0 +1,11 @@
+﻿  Circular_List.cpp
+C:\Users\ericb\git-repos\Linked_Lists_Lottery\Linked_Lists_Final\Circular_List.cpp(13,13): error C2011: 'node': 'struct' type redefinition
+C:\Users\ericb\git-repos\Linked_Lists_Lottery\Linked_Lists_Final\Circular_List.h(8): message : see declaration of 'node'
+C:\Users\ericb\git-repos\Linked_Lists_Lottery\Linked_Lists_Final\Circular_List.cpp(20,1): error C2011: 'Circular_List': 'class' type redefinition
+C:\Users\ericb\git-repos\Linked_Lists_Lottery\Linked_Lists_Final\Circular_List.h(14): message : see declaration of 'Circular_List'
+  Lottery_Final.cpp
+C:\Users\ericb\git-repos\Linked_Lists_Lottery\Linked_Lists_Final\Lottery_Final.cpp(9,13): error C2011: 'node': 'struct' type redefinition
+C:\Users\ericb\git-repos\Linked_Lists_Lottery\Linked_Lists_Final\Circular_List.h(8): message : see declaration of 'node'
+C:\Users\ericb\git-repos\Linked_Lists_Lottery\Linked_Lists_Final\Lottery_Final.cpp(17,21): error C2327: 'lottery::choices': is not a type name, static, or enumerator
+C:\Users\ericb\git-repos\Linked_Lists_Lottery\Linked_Lists_Final\Lottery_Final.cpp(17,14): error C2065: 'choices': undeclared identifier
+  Generating Code...

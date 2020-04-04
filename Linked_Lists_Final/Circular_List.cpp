@@ -53,23 +53,56 @@ public:
 		//circular
 		tail->next = start;
 		start->previous = tail;
+
+		//initialize index at start
+		index = start;
+	}
+
+	//this function should use the traverse functions, rand num chooser, and delete drawn number
+	//functions to pick and return each lottery number
+	//should not be apart of the class however
+	int drawLotteryNumber() {}
+	///\
+
+
+
+	int traverseForward(int travel) {
+		//if rand num is even, traversal is forwards
+
+		//node* temp = index;
+		//might not need temp if index is keeping track
+
+		for (int i = 0; i < travel; i++) {
+			index = index->next;
+		}
+
+		return index->data;
+	}
+
+	int traverseBackward(int travel) {
+		//if rand num is odd, traversal is backkwards
+
+		for (int i = 0; i < travel; i++) {
+			index = index->previous;
+		}
+
+		return index->data;
 	}
 
 
 	//WORK ON THIS FUNCTION	
-	void deleteDrawnNumber(int pos) {
-		node* cur = new node;
-		node* pre = new node;
+	void deleteCurrentPosition() {
+		node* temp = index;
 
-		cur = head;
+		node* prev = index->previous;
+		node* next = index->next;
 
-		for (int i = 0; i < pos; i++) {
-			pre = cur;
-			cur = cur->next;
-		}
+		prev->next = next;
+		next->previous = prev;
 
-		pre->next = cur->next;
+		index = index->next;
+
+		delete temp;
 	}
-
 
 };

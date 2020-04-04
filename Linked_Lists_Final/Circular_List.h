@@ -1,7 +1,5 @@
 
-//random num is drawn to count how mmany nodes are traversed
-//if rand num is odd, traversal is backkwards
-//if rand num is even, traversal is forwards
+//random num is drawn to count how many nodes are traversed
 
 #ifndef CIRCULAR_LIST_H_INCLUDED
 #define CIRCULAR_LIST_H_INCLUDED
@@ -21,9 +19,12 @@ private:
 	node* tail;
 public:
 	Circular_List();
-	void populateList();
-	void deleteDrawnNumber(int pos);
+	void populateList(); // 1 - 40
 
+	int traverseForward(int travel); //even rand int
+	int traverseBackward(int travel); //odd rand int
+
+	void deleteCurrentPosition();
 };
 
 #endif // !CIRCULAR_LIST_H_INCLUDED
