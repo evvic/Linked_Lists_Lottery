@@ -9,22 +9,15 @@ using namespace std; //might not use this in final buiild for this class
 //https://www.youtube.com/watch?v=5s0x8bc9DvQ
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
+/*
 struct node {
 	node* previous;
 	int data;
 	node* next;
 };
+*/
 
-class Circular_List
-{
-private:
-	node* index; //keeps track of the current position in the list
-	node* start;
-	node* tail;
-public:
-
-	Circular_List() { //constructor
+	Circular_List::Circular_List() { //constructor
 		start = NULL;
 		index = NULL;
 		tail = NULL;
@@ -33,7 +26,7 @@ public:
 		populateList();
 	}
 
-	void populateList() {
+	void Circular_List::populateList() {
 		//initial nod intialization
 		node* temp = new node;
 		temp->data = 1;
@@ -61,12 +54,12 @@ public:
 	//this function should use the traverse functions, rand num chooser, and delete drawn number
 	//functions to pick and return each lottery number
 	//should not be apart of the class however
-	int drawLotteryNumber() {}
+	//int Circular_List::drawLotteryNumber() {}
 	///\
 
 
 
-	int traverseForward(int travel) {
+	int Circular_List::traverseForward(int travel) {
 		//if rand num is even, traversal is forwards
 
 		//node* temp = index;
@@ -79,7 +72,7 @@ public:
 		return index->data;
 	}
 
-	int traverseBackward(int travel) {
+	int Circular_List::traverseBackward(int travel) {
 		//if rand num is odd, traversal is backkwards
 
 		for (int i = 0; i < travel; i++) {
@@ -91,7 +84,7 @@ public:
 
 
 	//WORK ON THIS FUNCTION	
-	void deleteCurrentPosition() {
+	void Circular_List::deleteCurrentPosition() {
 		node* temp = index;
 
 		node* prev = index->previous;
@@ -104,5 +97,3 @@ public:
 
 		delete temp;
 	}
-
-};

@@ -5,16 +5,18 @@
 #define CIRCULAR_LIST_H_INCLUDED
 
 
+
 struct node {
 	node* previous;
 	int data;
 	node* next;
 };
 
+
 class Circular_List
 {
 private:
-	node index; //keeps track of the current position in the list
+	node* index; //keeps track of the current position in the list
 	node* start;
 	node* tail;
 public:
