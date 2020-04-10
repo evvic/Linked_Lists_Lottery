@@ -1,3 +1,0 @@
-﻿  Lottery_Final.cpp
-C:\Users\ericb\git-repos\Linked_Lists_Lottery\Linked_Lists_Final\Lottery_Final.cpp(103,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Linked_Lists_Final.vcxproj -> C:\Users\ericb\git-repos\Linked_Lists_Lottery\x64\Debug\Linked_Lists_Final.exe

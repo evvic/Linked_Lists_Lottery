@@ -1,6 +1,0 @@
-﻿  Circular_List.cpp
-  Lottery_Final.cpp
-C:\Users\ericb\OneDrive\Documents\Programming Languages\Programming Languages 2\Linked_Lists_Final\Linked_Lists_Final\Lottery_Final.cpp(17,9): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\Users\ericb\OneDrive\Documents\Programming Languages\Programming Languages 2\Linked_Lists_Final\Linked_Lists_Final\Lottery_Final.cpp(20,2): warning C4183: 'list': missing return type; assumed to be a member function returning 'int'
-C:\Users\ericb\OneDrive\Documents\Programming Languages\Programming Languages 2\Linked_Lists_Final\Linked_Lists_Final\Lottery_Final.cpp(41,14): warning C4101: 'param': unreferenced local variable
-  Generating Code...
