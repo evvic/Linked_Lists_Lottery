@@ -3,3 +3,7 @@ Debug
 .sln
 x64/
 x64 \ Debug
+.suo
+.vcxproj
+.filters
+.user

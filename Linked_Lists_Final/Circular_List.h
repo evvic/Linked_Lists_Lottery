@@ -4,8 +4,6 @@
 #ifndef CIRCULAR_LIST_H_INCLUDED
 #define CIRCULAR_LIST_H_INCLUDED
 
-
-
 struct node {
 	node* previous;
 	int data;

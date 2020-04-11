@@ -11,10 +11,10 @@ const int lotto_min_num = 1;	//can choose nums from 1
 const int lotto_max_num = 40;	//to 40
 
 
-void UserPicks(int *&userL);
-void LottoPicks(int *&genL);
+void UserPicks(int*& userL);
+void LottoPicks(int*& genL);
 
-bool AlreadyChosen(int *&arr, int test); //returns true if test num has alaready been chosen previously in array
+bool AlreadyChosen(int*& arr, int test); //returns true if test num has alaready been chosen previously in array
 bool OutOfBounds(int test);
 
 int RandNum(int min, int max);
@@ -50,14 +50,27 @@ int main() {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //WORK ON CATCHING EXCEPTIONS (I.E. USER ENTERS -99999...999999)
-void UserPicks(int *&userL) {
+void UserPicks(int*& userL) {
 	//get ALL user lottery picks with ALL input validation
 	int num;
 
 	for (int i = 0; i < lotto_choices; i++) {
 		do {
-			cout << endl << "Pick lottery number #" << i + 1 << ": ";
-			cin >> num;
+			try {
+				cout << endl << "Pick lottery number #" << i + 1 << ": ";
+				cin >> num;
+				//catch any user input mistakes
+				if (!cin) {
+					throw 0;
+				}
+			}
+			catch (int param) {
+				cin.clear();
+				cin.ignore(256, '\n');
+
+				cout << "Caught exception";
+			}
+
 		} while (OutOfBounds(num) || AlreadyChosen(userL, num));
 
 		userL[i] = num;
@@ -91,7 +104,7 @@ bool OutOfBounds(int test) { //true if out of bounds
 }
 
 
-void LottoPicks(int *&genL) {
+void LottoPicks(int*& genL) {
 	//get ALL generated lottery picks
 	//delete picked nums from list
 	//choose random traversal amount
@@ -107,12 +120,12 @@ void LottoPicks(int *&genL) {
 
 		cout << "\nRand num: " << rand << endl;
 
-		if ( EvenIsTrue(rand) ) {
+		if (EvenIsTrue(rand)) {
 			//even num traverses forward
 			genL[i] = Lottery.traverseForward(rand);
 			Lottery.deleteCurrentPosition();
 		}
-		else if( !EvenIsTrue(rand) ) {
+		else if (!EvenIsTrue(rand)) {
 			//odd num traverses backward
 			genL[i] = Lottery.traverseBackward(rand);
 			Lottery.deleteCurrentPosition();
@@ -121,7 +134,7 @@ void LottoPicks(int *&genL) {
 			cout << "\n\tError. Was not even or odd?\n";
 			i--;
 			cout << "\tTrying again.\n";
-		}		
+		}
 	}
 	//no need to return, pass by reference
 }
