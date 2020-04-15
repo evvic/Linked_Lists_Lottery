@@ -4,11 +4,6 @@
 
 using namespace std; //might not use this in final buiild for this class
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//WATCH THIS VIDEO TO CREATE TRAVERSING FUCNTIONS UP AND DOWN LIST
-//https://www.youtube.com/watch?v=5s0x8bc9DvQ
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 /*
 struct node {
 	node* previous;
@@ -65,12 +60,14 @@ struct node {
 		//node* temp = index;
 		//might not need temp if index is keeping track
 
-		cout << "\nForwards: "; //cp
+		
+		//cout << "\nForwards: "; //cp
 		for (int i = 0; i < travel; i++) {
 			index = index->next;
-			cout << index->data << ' '; //teting traversal
+			//cout << index->data << ' '; //teting traversal
 		}
-		cout << endl; //cp
+		//cout << endl; //cp
+		
 
 		return index->data;
 	}
@@ -78,12 +75,14 @@ struct node {
 	int Circular_List::traverseBackward(int travel) {
 		//if rand num is odd, traversal is backkwards
 
-		cout << "\nBackwards: "; //cp
+		
+		//cout << "\nBackwards: "; //cp
 		for (int i = 0; i < travel; i++) {
 			index = index->previous;
-			cout << index->data << ' '; //teting traversal
+			//cout << index->data << ' '; //teting traversal
 		}
-		cout << endl; //cp
+		//cout << endl; //cp
+		
 
 		return index->data;
 	}

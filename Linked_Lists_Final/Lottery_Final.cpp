@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <time.h>
+#include <windows.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -20,7 +22,17 @@ bool OutOfBounds(int test);
 int RandNum(int min, int max);
 bool EvenIsTrue(int num);
 
+int CompareLotteryPicks(int*& userL, int*& genL); //return how many user got the same
+
+void Results(int c);
+
+void CenterString(string s);
+
+void DisplayLotteryNums(int*& lotto, string s);
+
 int main() {
+	int correct = 0; //amount that user got the same
+
 	//dynaimcally allocate arrrays
 	int* userLotto = new int[lotto_choices];
 	int* genLotto = new int[lotto_choices];
@@ -31,15 +43,26 @@ int main() {
 	//now generate the rand lottery numbers
 	LottoPicks(genLotto);
 
-	//then compare
+	//Compare generated and user lottery picks and return amount that are the same
+	correct = CompareLotteryPicks(userLotto, genLotto);
 
-	//did they win?
+	system("CLS"); //clear screen from user input
+
+	cout << endl;
+	DisplayLotteryNums(userLotto, "   Your picks:");
+	DisplayLotteryNums(genLotto, "   Lottery picks:");
+	cout << endl;
+
+	//dispays results of how many were correct and the "winnings"
+	Results(correct);
 
 	//test if gennerated lotto worked.... IT WORKED!!
+	/*
 	cout << "gen lotto: \n";
 	for (int i = 0; i < lotto_choices; i++) {
 		cout << genLotto[i] << " ";
 	}
+	*/
 
 
 	//prevent memory leakage
@@ -47,9 +70,109 @@ int main() {
 	delete[] genLotto;
 }
 
+void DisplayLotteryNums(int*& lotto, string s) { //displays a neat row of the selected lottery numbers
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	if (!GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
+	{
+		// an error occourred
+		cerr << "Cannot determine console size." << endl;
+	}
+	else
+	{
+		//cout << "\n\nThe console is " << csbi.srWindow.Right - csbi.srWindow.Left << " wide." << endl; //checkpoint
+	}
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//WORK ON CATCHING EXCEPTIONS (I.E. USER ENTERS -99999...999999)
+	int c_width = csbi.srWindow.Right - csbi.srWindow.Left;
+
+	/*
+	   __
+	 /    \
+	|  23  |
+	 \ __ /
+	*/
+
+	int spaces = 6;
+	//6 * 6 = 36
+
+	int length = lotto_choices * spaces;
+	length += 4; //to fix right-adjustment
+
+	int position = (int)((c_width - length) / 2);
+	cout << s;
+	for (int i = 0; i < position - s.length(); i++) {
+		cout << ' ';
+	}
+
+	for (int i = 0; i < lotto_choices; i++) {
+		cout << setw(6) << lotto[i];
+	}
+
+	cout << endl;
+}
+
+void Results(int c) {
+	switch (c) {
+		case 0:
+			CenterString("You matched 0 numbers.");
+			cout << endl;
+			CenterString("---Better luck next time---");
+			cout << endl;
+			break;
+		case 1:
+			CenterString("You only matched 1 number.");
+			cout << endl;
+			CenterString("You get your money back.");
+			cout << endl;
+			break;
+		case 2:
+			CenterString("You matched 2 numbers.");
+			cout << endl;
+			CenterString("You've won $15.");
+			cout << endl;
+			break;
+		case 3:
+			CenterString("You matched 3 numbers.");
+			cout << endl;
+			CenterString("You've won $250.");
+			cout << endl;
+			break;
+		case 4:
+			CenterString("You matched 4 numbers.");
+			cout << endl;
+			CenterString("You've won $20,000.");
+			cout << endl;
+			break;
+		case 5:
+			CenterString("You missed the jackpot by one.");
+			cout << endl;
+			CenterString("You've won $100,000.");
+			cout << endl;
+			break;
+		case 6:
+			CenterString("CONGRATULATIONS! You matched all 6 numbers.");
+			cout << endl;
+			CenterString("You've won $100 million.");
+			cout << endl;
+			break;
+		default:
+			cout << "Results() error.. I guess you lost lol";
+			break;
+	}
+}
+
+int CompareLotteryPicks(int*& userL, int*& genL) {
+	int correct = 0;
+
+	for (int i = 0; i < lotto_choices; i++) {
+		if (userL[i] == genL[i]) {
+			correct++;
+			cout << "Correct! At position " << i + 1 << endl; //checkpoint?
+		}
+	}
+
+	return correct;
+}
+
 void UserPicks(int*& userL) {
 	//get ALL user lottery picks with ALL input validation
 	int num;
@@ -103,7 +226,6 @@ bool OutOfBounds(int test) { //true if out of bounds
 	}
 }
 
-
 void LottoPicks(int*& genL) {
 	//get ALL generated lottery picks
 	//delete picked nums from list
@@ -118,7 +240,7 @@ void LottoPicks(int*& genL) {
 	for (int i = 0; i < lotto_choices; i++) {
 		rand = RandNum(lotto_min_num, lotto_max_num);
 
-		cout << "\nRand num: " << rand << endl;
+		//cout << "\nRand num: " << rand << endl; //checkpoint 
 
 		if (EvenIsTrue(rand)) {
 			//even num traverses forward
@@ -148,4 +270,27 @@ bool EvenIsTrue(int num) {
 
 int RandNum(int min, int max) {
 	return rand() % max + min;
+}
+
+void CenterString(string s) {
+
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	if (!GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
+	{
+		// an error occourred
+		cerr << "Cannot determine console size." << endl;
+	}
+	else
+	{
+		//cout << "\n\nThe console is " << csbi.srWindow.Right - csbi.srWindow.Left << " wide." << endl; //checkpoint
+	}
+
+
+	int c_width = csbi.srWindow.Right - csbi.srWindow.Left;
+	int length = s.size();
+	int position = (int)((c_width - length) / 2);
+	for (int i = 0; i < position; i++) {
+		cout << ' ';
+	}
+	cout << s;
 }
