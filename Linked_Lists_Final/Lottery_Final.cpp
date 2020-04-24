@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 const int lotto_choices = 6;	//6 choices of numbers in the lottery
 const int lotto_min_num = 1;	//can choose nums from 1
 const int lotto_max_num = 40;	//to 40
@@ -62,15 +61,6 @@ int main() {
 	//dispays results of how many were correct and the "winnings"
 	Results(correct);
 
-	//test if gennerated lotto worked.... IT WORKED!!
-	/*
-	cout << "gen lotto: \n";
-	for (int i = 0; i < lotto_choices; i++) {
-		cout << genLotto[i] << " ";
-	}
-	*/
-
-
 	//prevent memory leakage
 	delete[] userLotto;
 	delete[] genLotto;
@@ -82,10 +72,6 @@ void DisplayLotteryNums(int*& lotto, string s) { //displays a neat row of the se
 	{
 		// an error occourred
 		cerr << "Cannot determine console size." << endl;
-	}
-	else
-	{
-		//cout << "\n\nThe console is " << csbi.srWindow.Right - csbi.srWindow.Left << " wide." << endl; //checkpoint
 	}
 
 	int c_width = csbi.srWindow.Right - csbi.srWindow.Left;
@@ -175,7 +161,6 @@ int CompareLotteryPicks(int*& userL, int*& genL) {
 			cout << "Correct! At position " << i + 1 << endl; //checkpoint?
 		}
 	}
-
 	return correct;
 }
 
@@ -212,12 +197,10 @@ bool UserPicks(int*& userL) {
 
 				cout << "Caught exception";
 			}
-
 		} while (OutOfBounds(num) || AlreadyChosen(userL, num));
 
 		userL[i] = num;
 	}
-
 	return deets;
 }
 
@@ -298,6 +281,7 @@ int RandNum(int min, int max) {
 void CenterString(string s) {
 
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
+
 	if (!GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
 		// an error occourred
 		cerr << "Cannot determine console size." << endl;

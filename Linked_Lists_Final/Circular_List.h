@@ -1,4 +1,3 @@
-
 //random num is drawn to count how many nodes are traversed
 
 #ifndef CIRCULAR_LIST_H_INCLUDED
@@ -9,7 +8,6 @@ struct node {
 	int data;
 	node* next;
 };
-
 
 class Circular_List
 {

@@ -2,16 +2,6 @@
 
 #include <iostream>
 
-using namespace std; //might not use this in final buiild for this class
-
-/*
-struct node {
-	node* previous;
-	int data;
-	node* next;
-};
-*/
-
 	Circular_List::Circular_List() { //constructor
 		start = NULL;
 		index = NULL;
@@ -46,49 +36,32 @@ struct node {
 		index = start;
 	}
 
-	//this function should use the traverse functions, rand num chooser, and delete drawn number
-	//functions to pick and return each lottery number
-	//should not be apart of the class however
-	//int Circular_List::drawLotteryNumber() {}
-	///\
-
-
-
 	int Circular_List::traverseForward(int travel) {
 		//if rand num is even, traversal is forwards
-
-		//node* temp = index;
-		//might not need temp if index is keeping track
-
 		
-		if (showDetails) { cout << "\n\tTraversing Forwards: "; }//cp
+		if (showDetails) { std::cout << "\n\tTraversing Forwards: "; }//cp
 		for (int i = 0; i < travel; i++) {
 			index = index->next;
-			if(showDetails) { cout << index->data << ' '; } //teting traversal 
+			if(showDetails) { std::cout << index->data << ' '; } //teting traversal 
 		}
-		if (showDetails) { cout << endl; } //cp
-		
+		if (showDetails) { std::cout << std::endl; } //cp
 
 		return index->data;
 	}
 
 	int Circular_List::traverseBackward(int travel) {
 		//if rand num is odd, traversal is backkwards
-
 		
-		if (showDetails) { cout << "\n\tTraversing Backwards: "; }//cp
+		if (showDetails) { std::cout << "\n\tTraversing Backwards: "; }//cp
 		for (int i = 0; i < travel; i++) {
 			index = index->previous;
-			if (showDetails) { cout << index->data << ' '; } //teting traversal 
+			if (showDetails) { std::cout << index->data << ' '; } //teting traversal 
 		}
-		if (showDetails) { cout << endl; }
+		if (showDetails) { std::cout << std::endl; }
 		
-
 		return index->data;
 	}
 
-
-	//WORK ON THIS FUNCTION	
 	void Circular_List::deleteCurrentPosition() {
 		node* temp = index;
 
@@ -100,7 +73,7 @@ struct node {
 
 		index = index->next;
 
-		if (showDetails) { cout << "\tDeleting node: " << temp << endl; }
+		if (showDetails) { std::cout << "\tDeleting node: " << temp << std::endl; }
 		delete temp;
 	}
 
