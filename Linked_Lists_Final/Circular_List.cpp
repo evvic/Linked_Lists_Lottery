@@ -61,12 +61,12 @@ struct node {
 		//might not need temp if index is keeping track
 
 		
-		//cout << "\nForwards: "; //cp
+		if (showDetails) { cout << "\n\tTraversing Forwards: "; }//cp
 		for (int i = 0; i < travel; i++) {
 			index = index->next;
-			//cout << index->data << ' '; //teting traversal
+			if(showDetails) { cout << index->data << ' '; } //teting traversal 
 		}
-		//cout << endl; //cp
+		if (showDetails) { cout << endl; } //cp
 		
 
 		return index->data;
@@ -76,12 +76,12 @@ struct node {
 		//if rand num is odd, traversal is backkwards
 
 		
-		//cout << "\nBackwards: "; //cp
+		if (showDetails) { cout << "\n\tTraversing Backwards: "; }//cp
 		for (int i = 0; i < travel; i++) {
 			index = index->previous;
-			//cout << index->data << ' '; //teting traversal
+			if (showDetails) { cout << index->data << ' '; } //teting traversal 
 		}
-		//cout << endl; //cp
+		if (showDetails) { cout << endl; }
 		
 
 		return index->data;
@@ -100,5 +100,10 @@ struct node {
 
 		index = index->next;
 
+		if (showDetails) { cout << "\tDeleting node: " << temp << endl; }
 		delete temp;
+	}
+
+	void Circular_List::setShowDetails(bool d) {
+		showDetails = d;
 	}

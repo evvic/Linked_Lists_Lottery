@@ -4,6 +4,7 @@
 #include <time.h>
 #include <windows.h>
 #include <iomanip>
+#include <conio.h>
 
 using namespace std;
 
@@ -13,8 +14,8 @@ const int lotto_min_num = 1;	//can choose nums from 1
 const int lotto_max_num = 40;	//to 40
 
 
-void UserPicks(int*& userL);
-void LottoPicks(int*& genL);
+bool UserPicks(int*& userL);
+void LottoPicks(int*& genL, bool showDetails);
 
 bool AlreadyChosen(int*& arr, int test); //returns true if test num has alaready been chosen previously in array
 bool OutOfBounds(int test);
@@ -38,14 +39,19 @@ int main() {
 	int* genLotto = new int[lotto_choices];
 
 	//get user lottery pickings
-	UserPicks(userLotto);
+	CenterString("Enter '100' to show Circular_List traversal details.\n");
+	bool showDetails = UserPicks(userLotto);
 
 	//now generate the rand lottery numbers
-	LottoPicks(genLotto);
+	LottoPicks(genLotto, showDetails);
 
 	//Compare generated and user lottery picks and return amount that are the same
 	correct = CompareLotteryPicks(userLotto, genLotto);
 
+	if (showDetails) {
+		cout << "\nShowing Details of traversal. \nPress any key to continue program...";
+		char input = _getch();
+	}
 	system("CLS"); //clear screen from user input
 
 	cout << endl;
@@ -173,15 +179,28 @@ int CompareLotteryPicks(int*& userL, int*& genL) {
 	return correct;
 }
 
-void UserPicks(int*& userL) {
+bool UserPicks(int*& userL) {
 	//get ALL user lottery picks with ALL input validation
 	int num;
+	bool deets = false;
+	string sdeets = "off";
 
 	for (int i = 0; i < lotto_choices; i++) {
 		do {
 			try {
 				cout << endl << "Pick lottery number #" << i + 1 << ": ";
 				cin >> num;
+				if (num == 100) {
+					if (deets) {
+						deets = false;
+						sdeets = "off";
+					}
+					else {
+						deets = true;
+						sdeets = "on";
+					}
+					cout << "\nShowing Circular_List Details: " << sdeets;
+				}
 				//catch any user input mistakes
 				if (!cin) {
 					throw 0;
@@ -198,6 +217,8 @@ void UserPicks(int*& userL) {
 
 		userL[i] = num;
 	}
+
+	return deets;
 }
 
 bool AlreadyChosen(int*& arr, int test) { //returns true if test matches any nums in arr
@@ -226,7 +247,7 @@ bool OutOfBounds(int test) { //true if out of bounds
 	}
 }
 
-void LottoPicks(int*& genL) {
+void LottoPicks(int*& genL, bool showDetails) {
 	//get ALL generated lottery picks
 	//delete picked nums from list
 	//choose random traversal amount
@@ -235,12 +256,14 @@ void LottoPicks(int*& genL) {
 
 	Circular_List Lottery; //create linked list in heap, resets when function is finished
 
+	Lottery.setShowDetails(showDetails);
+
 	srand(time(0)); //random seed
 
 	for (int i = 0; i < lotto_choices; i++) {
 		rand = RandNum(lotto_min_num, lotto_max_num);
 
-		//cout << "\nRand num: " << rand << endl; //checkpoint 
+		if (showDetails) { cout << "\n\tRand num: " << rand; } //checkpoint 
 
 		if (EvenIsTrue(rand)) {
 			//even num traverses forward
@@ -275,16 +298,10 @@ int RandNum(int min, int max) {
 void CenterString(string s) {
 
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	if (!GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
-	{
+	if (!GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
 		// an error occourred
 		cerr << "Cannot determine console size." << endl;
 	}
-	else
-	{
-		//cout << "\n\nThe console is " << csbi.srWindow.Right - csbi.srWindow.Left << " wide." << endl; //checkpoint
-	}
-
 
 	int c_width = csbi.srWindow.Right - csbi.srWindow.Left;
 	int length = s.size();
