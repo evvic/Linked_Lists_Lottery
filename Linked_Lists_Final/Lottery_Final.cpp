@@ -156,9 +156,11 @@ int CompareLotteryPicks(int*& userL, int*& genL) {
 	int correct = 0;
 
 	for (int i = 0; i < lotto_choices; i++) {
-		if (userL[i] == genL[i]) {
-			correct++;
-			cout << "Correct! At position " << i + 1 << endl; //checkpoint?
+		for (int j = 0; j < lotto_choices; j++) {
+			if (userL[i] == genL[j]) {
+				correct++;
+				cout << "Correct! At position " << i + 1 << endl; //checkpoint?
+			}
 		}
 	}
 	return correct;
