@@ -12,6 +12,7 @@ const int lotto_choices = 6;	//6 choices of numbers in the lottery
 const int lotto_min_num = 1;	//can choose nums from 1
 const int lotto_max_num = 40;	//to 40
 
+void TitleScreen();
 
 bool UserPicks(int*& userL);
 void LottoPicks(int*& genL, bool showDetails);
@@ -36,6 +37,8 @@ int main() {
 	//dynaimcally allocate arrrays
 	int* userLotto = new int[lotto_choices];
 	int* genLotto = new int[lotto_choices];
+
+	TitleScreen();
 
 	//get user lottery pickings
 	CenterString("Enter '100' to show Circular_List traversal details.\n");
@@ -64,6 +67,35 @@ int main() {
 	//prevent memory leakage
 	delete[] userLotto;
 	delete[] genLotto;
+}
+
+void TitleScreen() {
+	const int levels = 11;
+
+	string first =  " /$$                   /$$     /$$                                  ";
+	string second = "| $$                  | $$    | $$                                  ";
+	string third =  "| $$        /$$$$$$  /$$$$$$ /$$$$$$    /$$$$$$   /$$$$$$  /$$   /$$";
+	string fourth = "| $$       /$$__  $$|_  $$_/|_  $$_/   /$$__  $$ /$$__  $$| $$  | $$";
+	string fifth =  "| $$      | $$  \\ $$  | $$    | $$    | $$$$$$$$| $$  \\__/| $$  | $$";
+	string sixth =  "| $$      | $$  | $$  | $$ /$$| $$ /$$| $$_____/| $$      | $$  | $$";
+	string seventh ="| $$$$$$$$|  $$$$$$/  |  $$$$/|  $$$$/|  $$$$$$$| $$      |  $$$$$$$";
+	string eigth =  "|________/ \\______/    \\___/   \\___/   \\_______/|__/       \\____  $$";
+	string ninth =  "                                                           /$$  | $$";
+	string tenth =	"                                                          |  $$$$$$/";
+	string eleventh = "                                                           \\______/ ";
+
+	string title[levels] = { first, second, third, fourth, fifth, sixth, seventh, eigth, ninth, tenth, eleventh };
+
+	cout << endl;
+	for (int i = 0; i < levels; i++) {
+		CenterString(title[i]);
+		cout << endl;
+	}
+	cout << endl;
+	CenterString("Pick 6 numbers (1-40), the more matched with the lottery the bigger the prize!");
+	cout << endl;
+	CenterString("Goodluck!");
+	cout << endl << endl;
 }
 
 void DisplayLotteryNums(int*& lotto, string s) { //displays a neat row of the selected lottery numbers
@@ -223,7 +255,8 @@ bool OutOfBounds(int test) { //true if out of bounds
 		return true;
 	}
 	else if (test > lotto_max_num) {
-		cout << "\nChosen lottery number cannot be above " << lotto_max_num << '.' << endl;
+		//don't display error for entering '100', since it's used for turning on/off details
+		if (test != 100) { cout << "\nChosen lottery number cannot be above " << lotto_max_num << '.' << endl; }
 		return true;
 	}
 	else {
